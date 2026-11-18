@@ -1,0 +1,803 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#080414">
+<title>For Sarauniya ta 💜🌹</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+html,body{
+ width:100%;
+ min-height:100%;
+ background:#080414;
+ color:white;
+ font-family:Georgia,serif;
+ overflow:hidden;
+}
+
+#stars{
+ position:fixed;
+ inset:0;
+ width:100%;
+ height:100%;
+ pointer-events:none;
+ opacity:1;
+ transition:opacity 2s ease;
+}
+
+.scene{
+ position:relative;
+ width:100%;
+ height:100svh;
+ min-height:620px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ overflow:hidden;
+ opacity:1;
+ transition:opacity 2s ease;
+}
+
+.heading{
+ position:absolute;
+ top:35px;
+ left:0;
+ width:100%;
+ text-align:center;
+ z-index:3;
+ padding:0 15px;
+}
+
+.heading small{
+ font:10px Arial,sans-serif;
+ letter-spacing:4px;
+ color:#d6aaff;
+}
+
+.heading h1{
+ font-weight:normal;
+ font-size:clamp(26px,7vw,39px);
+ margin-top:12px;
+ color:#ffd1e8;
+ text-shadow:0 0 25px #ff65b877;
+}
+
+.stage{
+ position:absolute;
+ width:min(100vw,480px);
+ height:min(112vw,590px);
+ top:48%;
+ transform:translateY(-50%);
+}
+
+svg{
+ width:100%;
+ height:100%;
+ overflow:visible;
+}
+
+.ground{
+ fill:none;
+ stroke:#b68bdb;
+ stroke-width:1.5;
+ opacity:.2;
+}
+
+/* THE FALLEN ROSE RISES */
+
+.rose{
+ transform-box:view-box;
+ transform-origin:190px 490px;
+ animation:rise 5s cubic-bezier(.2,.75,.2,1) 2.2s forwards;
+}
+
+@keyframes rise{
+ 0%{transform:rotate(72deg) translateY(0)}
+ 65%{transform:rotate(-5deg) translateY(-5px)}
+ 82%{transform:rotate(3deg) translateY(-2px)}
+ 100%{transform:rotate(0deg) translateY(0)}
+}
+
+.stem{
+ fill:none;
+ stroke:url(#stemGrad);
+ stroke-width:8;
+ stroke-linecap:round;
+ stroke-dasharray:250;
+ stroke-dashoffset:250;
+ animation:drawStem 4s ease 3s forwards;
+}
+
+@keyframes drawStem{
+ to{stroke-dashoffset:0}
+}
+
+.leaf{
+ transform-box:fill-box;
+ transform-origin:center;
+ opacity:0;
+ animation:leafAppear 2s ease 6s forwards;
+}
+
+@keyframes leafAppear{
+ from{opacity:0;transform:scale(.1)}
+ to{opacity:1;transform:scale(1)}
+}
+
+/* THE PETALS */
+
+.petal{
+ transform-box:fill-box;
+ transform-origin:50% 90%;
+}
+
+.petal.back{transform:scale(.15)}
+.petal.mid{transform:scale(.1)}
+.petal.front{transform:scale(.08)}
+
+.bloom1 .back{
+ animation:openBack 3s cubic-bezier(.2,.8,.2,1) 7s forwards;
+}
+
+.bloom1 .mid{
+ animation:openMid 3s cubic-bezier(.2,.8,.2,1) 7.5s forwards;
+}
+
+.bloom1 .front{
+ animation:openFront 3s cubic-bezier(.2,.8,.2,1) 8s forwards;
+}
+
+@keyframes openBack{
+ to{transform:scale(1)}
+}
+
+@keyframes openMid{
+ to{transform:scale(1)}
+}
+
+@keyframes openFront{
+ to{transform:scale(1)}
+}
+
+/* THE ROSE GENTLY CLOSES */
+
+.closed .back{
+ transform:scale(.16)!important;
+ transition:transform 2s ease;
+}
+
+.closed .mid{
+ transform:scale(.12)!important;
+ transition:transform 2s ease;
+}
+
+.closed .front{
+ transform:scale(.1)!important;
+ transition:transform 2s ease;
+}
+
+/* THE SECOND BLOOM */
+
+.bloom2 .back{
+ animation:openBack 3s ease forwards;
+}
+
+.bloom2 .mid{
+ animation:openMid 3s ease .25s forwards;
+}
+
+.bloom2 .front{
+ animation:openFront 3s ease .5s forwards;
+}
+
+.bloom2{
+ filter:drop-shadow(0 0 15px #ff69b8);
+}
+
+.roseHead{
+ filter:drop-shadow(0 0 8px #dc62d5);
+}
+
+/* SPARKLES */
+
+.sparkle{
+ animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+ from{opacity:.2}
+ to{opacity:1}
+}
+
+.hint{
+ position:absolute;
+ bottom:23px;
+ left:0;
+ width:100%;
+ text-align:center;
+ font:10px Arial,sans-serif;
+ letter-spacing:3px;
+ color:#c9b4db;
+ opacity:.7;
+ transition:opacity 1s;
+}
+
+/* COMPLETELY SEPARATE LETTER PAGE */
+
+.letterPage{
+ position:fixed;
+ inset:0;
+ z-index:20;
+ min-height:100svh;
+ padding:35px 22px;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ align-items:center;
+ text-align:center;
+
+ background:
+ radial-gradient(ellipse at 12% 5%,#762c70 0%,transparent 38%),
+ radial-gradient(ellipse at 90% 90%,#49277c 0%,transparent 42%),
+ radial-gradient(ellipse at 50% 45%,#35174e 0%,transparent 65%),
+ linear-gradient(145deg,#10091f,#241039 55%,#10091f);
+
+ opacity:0;
+ visibility:hidden;
+ transform:scale(1.035);
+ transition:
+ opacity 2s ease,
+ transform 2s ease,
+ visibility 2s;
+ overflow-y:auto;
+ pointer-events:none;
+}
+
+.letterPage.show{
+ opacity:1;
+ visibility:visible;
+ transform:scale(1);
+ pointer-events:auto;
+}
+
+.letterInner{
+ width:100%;
+ max-width:520px;
+ padding:34px 23px;
+ border:1px solid #ffffff20;
+ border-radius:25px;
+ background:linear-gradient(145deg,#ffffff12,#ffffff05);
+ box-shadow:0 15px 60px #0004,0 0 35px #bb72ff12;
+}
+
+.letterPage .eyebrow{
+ font:10px Arial,sans-serif;
+ letter-spacing:4px;
+ color:#e0b6ff;
+ margin-bottom:21px;
+}
+
+.letterPage h2{
+ font-size:clamp(35px,8vw,49px);
+ font-weight:normal;
+ line-height:1.2;
+ margin-bottom:25px;
+ background:linear-gradient(
+  100deg,#ffe0ec,#ff8cba,#d5aaff,#ffe0a3
+ );
+ -webkit-background-clip:text;
+ background-clip:text;
+ color:transparent;
+}
+
+.letterPage p{
+ font-size:16px;
+ line-height:1.95;
+ color:#f7eaf5;
+ max-width:470px;
+ margin:0 auto;
+}
+
+.letterPage .signature{
+ color:#ffb8d8;
+ font-size:27px;
+ font-style:italic;
+ line-height:1.5;
+ margin-top:27px;
+}
+
+.letterDivider{
+ width:75px;
+ height:1px;
+ margin:25px auto;
+ background:linear-gradient(90deg,transparent,#ffafd4,#d3a5ff,transparent);
+}
+
+.restart{
+ margin-top:28px;
+ padding:13px 21px;
+ border-radius:30px;
+ border:1px solid #d8a7ff77;
+ background:linear-gradient(100deg,#ffffff13,#ffffff05);
+ color:#edceff;
+ letter-spacing:2px;
+ font:10px Arial,sans-serif;
+ cursor:pointer;
+ transition:background .3s,transform .3s;
+}
+
+.restart:active{
+ transform:scale(.96);
+ background:#ffffff20;
+}
+
+@media(max-height:720px){
+ .heading{top:15px}
+ .stage{height:90vw;max-height:460px}
+ .letterPage{justify-content:flex-start;padding-top:20px;padding-bottom:25px}
+ .letterInner{padding:26px 20px}
+ .letterPage p{font-size:14px;line-height:1.8}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+
+<!-- ROSE EXPERIENCE -->
+
+<div class="scene" id="scene">
+
+ <div class="heading">
+  <small>A LITTLE GIFT FROM MY HEART</small>
+  <h1>For My Sarauniya 💜</h1>
+ </div>
+
+ <div class="stage">
+
+ <svg viewBox="0 0 380 560" xmlns="http://www.w3.org/2000/svg">
+
+ <defs>
+
+  <linearGradient id="stemGrad" x1="0" y1="0" x2="1" y2="1">
+   <stop stop-color="#245c65"/>
+   <stop offset=".5" stop-color="#57b99b"/>
+   <stop offset="1" stop-color="#a3d77b"/>
+  </linearGradient>
+
+  <linearGradient id="leafGrad" x1="0" y1="0" x2="1" y2="1">
+   <stop stop-color="#1c4a57"/>
+   <stop offset=".5" stop-color="#4fbd9c"/>
+   <stop offset="1" stop-color="#a0d77a"/>
+  </linearGradient>
+
+  <radialGradient id="roseGrad" cx="40%" cy="25%" r="80%">
+   <stop stop-color="#ffb1e4"/>
+   <stop offset=".32" stop-color="#ed62b9"/>
+   <stop offset=".7" stop-color="#a82c9c"/>
+   <stop offset="1" stop-color="#481052"/>
+  </radialGradient>
+
+  <radialGradient id="innerGrad" cx="40%" cy="20%" r="85%">
+   <stop stop-color="#ffd2ee"/>
+   <stop offset=".4" stop-color="#ff78c5"/>
+   <stop offset="1" stop-color="#9d247f"/>
+  </radialGradient>
+
+  <linearGradient id="petalLight" x1="0" y1="0" x2="1" y2="1">
+   <stop stop-color="#ffc7e9"/>
+   <stop offset=".5" stop-color="#ee78c9"/>
+   <stop offset="1" stop-color="#922b94"/>
+  </linearGradient>
+
+ </defs>
+
+ <ellipse cx="190" cy="493" rx="135" ry="12"
+ fill="#a66ad6" opacity=".09"/>
+
+ <path class="ground" d="M38 493 Q190 476 342 493"/>
+
+ <!-- FALLEN ROSE -->
+
+ <g class="rose" id="rose">
+
+  <!-- CURVED STEM -->
+
+  <path class="stem"
+  d="M190 490 C180 445 215 400 195 354 C182 326 191 300 190 275"/>
+
+  <!-- LEAVES -->
+
+  <g class="leaf">
+
+   <path d="M193 415 C150 370 116 383 122 399
+   C137 425 170 427 193 415Z"
+   fill="url(#leafGrad)"/>
+
+   <path d="M126 394 Q159 407 193 415"
+   fill="none" stroke="#a3e2c3" opacity=".65" stroke-width="1.5"/>
+
+   <path d="M189 393 C225 350 260 360 256 380
+   C250 407 218 411 189 393Z"
+   fill="url(#leafGrad)"/>
+
+   <path d="M251 372 Q219 388 189 393"
+   fill="none" stroke="#a3e2c3" opacity=".65" stroke-width="1.5"/>
+
+  </g>
+
+  <g class="leaf">
+   <path d="M192 452 C157 428 144 442 157 458
+   C167 471 185 464 192 452Z"
+   fill="url(#leafGrad)"/>
+
+   <path d="M157 448 Q177 451 192 452"
+   fill="none" stroke="#b4e4c2" stroke-width="1"/>
+  </g>
+
+  <!-- ROSE HEAD -->
+
+  <g class="roseHead" id="roseHead">
+
+   <!-- OUTER PETALS -->
+
+   <g class="petal back">
+
+    <path d="M190 276 C145 252 112 215 139 174
+    C156 149 180 165 190 194
+    C202 153 238 150 253 179
+    C278 226 230 258 190 276Z"
+    fill="url(#roseGrad)" stroke="#fca4dd" stroke-width="1.5"/>
+
+    <path d="M190 268 C155 232 151 193 167 176"
+    fill="none" stroke="#ffb8e6" opacity=".5" stroke-width="2"/>
+
+    <path d="M194 270 C229 229 244 194 227 172"
+    fill="none" stroke="#ffb8e6" opacity=".4" stroke-width="2"/>
+
+   </g>
+
+   <g class="petal back">
+
+    <path d="M190 274 C133 267 92 237 109 207
+    C123 182 157 193 190 235
+    C172 190 183 159 205 161
+    C232 162 239 206 190 274Z"
+    fill="#b839a4" stroke="#f7a0d9" stroke-width="1.5"/>
+
+   </g>
+
+   <g class="petal back">
+
+    <path d="M190 274 C235 266 282 238 267 207
+    C253 181 223 191 190 235
+    C207 187 197 157 175 160
+    C148 163 142 210 190 274Z"
+    fill="#c749b2" stroke="#f7a0d9" stroke-width="1.5"/>
+
+   </g>
+
+   <!-- MIDDLE PETALS -->
+
+   <g class="petal mid">
+
+    <path d="M190 273 C145 249 142 212 165 193
+    C184 179 194 204 190 230
+    C208 190 237 198 238 223
+    C240 248 212 266 190 273Z"
+    fill="url(#petalLight)" stroke="#ffc3e9" stroke-width="1.3"/>
+
+   </g>
+
+   <g class="petal mid">
+
+    <path d="M190 274 C155 244 164 213 184 207
+    C202 202 212 225 190 274Z"
+    fill="#f38acb" stroke="#ffc4e9" stroke-width="1.2"/>
+
+   </g>
+
+   <g class="petal mid">
+
+    <path d="M190 274 C218 250 222 221 205 208
+    C189 195 174 224 190 274Z"
+    fill="#e66ab9" stroke="#ffc4e9" stroke-width="1.2"/>
+
+   </g>
+
+   <!-- INNER CURLING PETALS -->
+
+   <g class="petal front">
+
+    <path d="M190 269 C165 249 174 222 190 219
+    C210 215 221 242 190 269Z"
+    fill="url(#innerGrad)" stroke="#ffe0f2" stroke-width="1.5"/>
+
+    <path d="M190 265 C178 247 185 230 197 232
+    C208 236 202 251 190 265Z"
+    fill="#a72c91" stroke="#ffd0ed" stroke-width="1"/>
+
+   </g>
+
+   <g class="petal front">
+
+    <path d="M190 267 C174 250 184 237 192 239
+    C205 243 201 255 190 267Z"
+    fill="#ffb4e2" stroke="#ffe2f4" stroke-width="1"/>
+
+   </g>
+
+  </g>
+ </g>
+
+ <g id="glimmers"></g>
+
+ </svg>
+ </div>
+
+ <div class="hint" id="hint">
+ A LITTLE ROSE IS FINDING ITS WAY BACK ✨
+ </div>
+
+</div>
+
+<!-- SEPARATE LETTER PAGE -->
+
+<div class="letterPage" id="message">
+
+ <div class="letterInner">
+
+  <div class="eyebrow">
+   A LITTLE MESSAGE FROM MUHAMMAD
+  </div>
+
+  <h2>Sarauniya ta 💜</h2>
+
+  <p>
+   If I could give you one thing in this world,
+   it would be the ability to see yourself through my eyes.
+
+   <br><br>
+
+   Perhaps then you would understand just how precious
+   you are to me.
+
+   <br><br>
+
+   You are my favourite thought, my sweetest smile,
+   and one of the most beautiful blessings I ask Allah
+   to preserve in my life.
+
+   <br><br>
+
+   I pray that your heart never loses its ability to bloom,
+   that sadness never steals your smile for too long,
+   and that Allah surrounds you with happiness,
+   protection and endless barakah.
+
+   <br><br>
+
+   And just like this little rose, may you always find
+   the strength to bloom again, even after your hardest days.
+
+   <br><br>
+
+   I love you so much, Baby girl. ❤️
+  </p>
+
+  <div class="letterDivider"></div>
+
+  <div class="signature">
+   Forever yours,<br>
+   Muhammad 💜
+  </div>
+
+  <button class="restart" id="restart">
+   WATCH OUR ROSE BLOOM AGAIN ✨
+  </button>
+
+ </div>
+</div>
+
+<script>
+(()=>{
+ const canvas=document.getElementById("stars");
+ const ctx=canvas.getContext("2d");
+
+ const scene=document.getElementById("scene");
+ const message=document.getElementById("message");
+ const hint=document.getElementById("hint");
+ const rose=document.getElementById("rose");
+ const roseHead=document.getElementById("roseHead");
+ const glimmers=document.getElementById("glimmers");
+
+ let w,h,dpr;
+ let stars=[];
+ let timers=[];
+
+ function resize(){
+  dpr=Math.min(devicePixelRatio||1,2);
+  w=innerWidth;
+  h=innerHeight;
+
+  canvas.width=w*dpr;
+  canvas.height=h*dpr;
+
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+
+  makeStars();
+ }
+
+ addEventListener("resize",resize);
+
+ function makeStars(){
+  stars=[];
+
+  for(let i=0;i<180;i++){
+   stars.push({
+    x:Math.random()*w,
+    y:Math.random()*h,
+    r:.3+Math.random()*1.3,
+    a:.15+Math.random()*.65,
+    p:Math.random()*6.28,
+    s:.5+Math.random()*2
+   });
+  }
+ }
+
+ resize();
+
+ function draw(now){
+  ctx.clearRect(0,0,w,h);
+
+  for(const s of stars){
+   const tw=.35+.65*(.5+.5*Math.sin(now*.001*s.s+s.p));
+
+   ctx.fillStyle=`rgba(216,183,255,${s.a*tw})`;
+
+   ctx.beginPath();
+   ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+   ctx.fill();
+  }
+
+  requestAnimationFrame(draw);
+ }
+
+ requestAnimationFrame(draw);
+
+ function addSparkles(){
+  glimmers.innerHTML="";
+
+  for(let i=0;i<110;i++){
+   const x=40+Math.random()*300;
+   const y=150+Math.random()*340;
+   const r=.7+Math.random()*1.5;
+
+   const colours=[
+    "#ffd6f1",
+    "#d4aaff",
+    "#ff9bd0",
+    "#ffe8aa"
+   ];
+
+   const el=document.createElementNS(
+    "http://www.w3.org/2000/svg","circle"
+   );
+
+   el.setAttribute("cx",x);
+   el.setAttribute("cy",y);
+   el.setAttribute("r",r);
+   el.setAttribute("fill",colours[i%4]);
+   el.setAttribute("class","sparkle");
+   el.style.animationDelay=(Math.random()*3)+"s";
+
+   glimmers.appendChild(el);
+  }
+ }
+
+ addSparkles();
+
+ function later(fn,delay){
+  const id=setTimeout(fn,delay);
+  timers.push(id);
+ }
+
+ function resetAnimations(){
+  timers.forEach(clearTimeout);
+  timers=[];
+
+  message.classList.remove("show");
+  scene.style.opacity="1";
+  canvas.style.opacity="1";
+  hint.style.opacity=".7";
+
+  rose.classList.remove("closed");
+  roseHead.classList.remove("bloom1","bloom2");
+
+  // Restart CSS animations cleanly
+  void rose.offsetWidth;
+  void roseHead.offsetWidth;
+
+  rose.style.animation="none";
+  rose.querySelector(".stem").style.animation="none";
+
+  rose.querySelectorAll(".leaf").forEach(el=>{
+   el.style.animation="none";
+  });
+
+  roseHead.querySelectorAll(".petal").forEach(el=>{
+   el.style.animation="none";
+   el.style.transition="none";
+   el.style.transform="";
+  });
+
+  void rose.offsetWidth;
+
+  rose.style.animation="";
+  rose.querySelector(".stem").style.animation="";
+
+  rose.querySelectorAll(".leaf").forEach(el=>{
+   el.style.animation="";
+  });
+
+  roseHead.querySelectorAll(".petal").forEach(el=>{
+   el.style.animation="";
+   el.style.transition="";
+  });
+
+  run();
+ }
+
+ function run(){
+
+  // First bloom
+  roseHead.classList.add("bloom1");
+
+  // Close gently
+  later(()=>{
+   rose.classList.add("closed");
+  },13000);
+
+  // Prepare the second bloom
+  later(()=>{
+   roseHead.classList.remove("bloom1");
+   rose.classList.remove("closed");
+
+   roseHead.querySelectorAll(".petal").forEach(el=>{
+    el.style.transform="";
+   });
+
+   void roseHead.offsetWidth;
+
+   roseHead.classList.add("bloom2");
+  },16000);
+
+  // Fade away the rose scene
+  // Then reveal the separate letter page
+  later(()=>{
+   scene.style.opacity="0";
+   canvas.style.opacity="0";
+   hint.style.opacity="0";
+
+   later(()=>{
+    message.classList.add("show");
+   },1500);
+
+  },21000);
+ }
+
+ document.getElementById("restart")
+ .addEventListener("click",resetAnimations);
+
+ run();
+
+})();
+</script>
+
+</body>
+</html>
